@@ -1,12 +1,14 @@
 import {Network, NetworkOption, getFormattedNetwork} from '@/utils/network'
-import {useMagic} from './provider/MagicPrroviderr'
-import {Dispatch, SetStateAction, useState} from 'react'
+import {useMagic} from './provider/MagicPrrovider'
+import {Dispatch, SetStateAction, useEffect, useState} from 'react'
+import classNames from 'classnames'
 
 export type Props = {
 	onChange: (value: string) => void
 	selectedNetwork: NetworkOption | null
+	setAccount: Dispatch<SetStateAction<string | null>>
 }
-const Login = ({onChange, selectedNetwork}: Props) => {
+const Login = ({onChange, selectedNetwork, setAccount}: Props) => {
 	const {magic} = useMagic()
 
 	const [loginInProgress, setLoginInProgress] = useState(false)
@@ -14,13 +16,10 @@ const Login = ({onChange, selectedNetwork}: Props) => {
 	const handleConnect = async () => {
 		setLoginInProgress(true)
 		try {
-			if (await magic?.user.isLoggedIn()) {
-				await magic?.user.logout()
-				localStorage.setItem('user', '')
-			}
 			const accounts = await magic?.wallet.connectWithUI()
 			if (accounts) {
 				localStorage.setItem('user', accounts[0])
+				setAccount(accounts[0])
 				setLoginInProgress(false)
 			}
 		} catch (e) {
@@ -44,7 +43,10 @@ const Login = ({onChange, selectedNetwork}: Props) => {
 				))}
 			</select>
 			<button
-				className='rounded-3xl px-8 py-2 bg-[#A799FF] hover:bg-[#A799FF]/[0.5] text-white font-medium'
+				className={classNames(
+					'rounded-3xl px-8 py-2 bg-[#A799FF] text-white font-medium',
+					!loginInProgress ? 'hover:bg-[#A799FF]/[0.5]' : ''
+				)}
 				onClick={handleConnect}
 				disabled={loginInProgress}>
 				{loginInProgress ? 'Waiting for login to complete...' : 'Login'}

@@ -2,9 +2,10 @@ import Balance from './balane'
 
 const Wallet = () => {
 	return (
-		<div className='w-full h-full '>
-			<div className='flex justify-center items-center'>asd</div>
-			<Balance />
+		<div className='min-h-[100%]'>
+			<div className='grid gap-2 grid-cols-4 p-4'>
+				<Balance />
+			</div>
 		</div>
 	)
 }

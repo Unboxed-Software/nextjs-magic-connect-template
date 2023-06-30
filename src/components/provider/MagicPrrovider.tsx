@@ -56,7 +56,7 @@ export const MagicProvier = (props: ProviderProps) => {
 			magic,
 			web3,
 		}
-	}, [network, setNetwork])
+	}, [props])
 
 	return (
 		<MagicContext.Provider value={value}>
