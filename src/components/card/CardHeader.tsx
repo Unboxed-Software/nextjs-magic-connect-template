@@ -10,8 +10,8 @@ const CardHeader = ({title, action}: HeaderProps) => (
 		{action && (
 			<ActionButton
 				title={action.title}
-				type='success'
-				loading={true}
+				type={action.type}
+				loading={action.loading}
 				onClick={action.onClick}
 			/>
 		)}
