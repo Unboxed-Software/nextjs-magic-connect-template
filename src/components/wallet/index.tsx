@@ -3,6 +3,9 @@ import Card from '../card/Card'
 import CardHeader from '../card/CardHeader'
 import {useMagic} from '../provider/MagicPrrovider'
 import Balance from './balane'
+import Address from './address'
+import SendTransaction from './transaction/SendTransaction'
+import SignMessage from './message/SignMessage'
 
 const Wallet = () => {
 	const {magic} = useMagic()
@@ -27,7 +30,7 @@ const Wallet = () => {
 
 	return (
 		<div className='min-h-[100%]'>
-			<div className='grid gap-2 grid-cols-4 p-4'>
+			<div className='grid gap-4 grid-cols-5 p-4 mx-[10%]'>
 				<Card>
 					<CardHeader
 						title='Wallet'
@@ -41,6 +44,15 @@ const Wallet = () => {
 						}}
 					/>
 					<Balance />
+					<Address />
+				</Card>
+				<Card>
+					<CardHeader title='Send Transaction' />
+					<SendTransaction />
+				</Card>
+				<Card>
+					<CardHeader title='Send Transaction' />
+					<SignMessage />
 				</Card>
 			</div>
 		</div>
