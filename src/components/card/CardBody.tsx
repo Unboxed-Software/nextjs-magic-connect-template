@@ -24,7 +24,7 @@ const CardBody = ({label, value, action, needDivider = false}: BodyProps) => {
 					/>
 				)}
 			</div>
-			<div className='text-sm font-medium p-2 mt-2 bg-[#E0E0E0] rounded-md'>
+			<div className='text-sm font-medium p-2 mt-2 bg-[#E0E0E0] rounded-md break-words'>
 				{value}
 			</div>
 			{needDivider && <hr className='mt-2 bg-[#BDBDBD]' />}

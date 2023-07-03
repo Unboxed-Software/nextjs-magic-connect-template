@@ -19,7 +19,6 @@ const Balance = () => {
 		setBalance('... ether')
 		try {
 			const address = localStorage.getItem('user')
-			console.log('address: ' + address)
 			if (!address) {
 				return
 			}
@@ -30,7 +29,6 @@ const Balance = () => {
 					`${web3?.utils.fromWei(walletBalance, 'ether')} ether`
 				)
 			}
-			console.log('balance: ' + walletBalance)
 			setLoading(false)
 		} catch (e) {
 			setLoading(false)
@@ -43,20 +41,17 @@ const Balance = () => {
 	}
 
 	return (
-		<Card>
-			<CardHeader title='Wallet' />
-			<CardBody
-				label='Balance'
-				value={balance as unknown as string}
-				needDivider
-				action={{
-					title: 'Refresh',
-					onClick: handleActionClick,
-					type: 'info',
-					loading: loading,
-				}}
-			/>
-		</Card>
+		<CardBody
+			label='Balance'
+			value={balance as unknown as string}
+			needDivider
+			action={{
+				title: 'Refresh',
+				onClick: handleActionClick,
+				type: 'info',
+				loading: loading,
+			}}
+		/>
 	)
 }
 
