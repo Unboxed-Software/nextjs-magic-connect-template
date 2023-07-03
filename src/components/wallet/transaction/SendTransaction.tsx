@@ -25,7 +25,7 @@ const SendTransaction = () => {
 			from: account!,
 			to: receiver,
 			gas: 21000,
-			value: web3?.utils.toWei(amount!, 'ether'),
+			value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
 		}
 
 		web3?.eth
@@ -36,13 +36,15 @@ const SendTransaction = () => {
 				alert('Transaction Hash: ' + hash)
 			})
 			.on('receipt', (receipt) => {
+				setReceiver(null)
+				setAmount(null)
 				alert('Transaction Hash: ' + JSON.stringify(receipt))
 			})
 			.catch((error) => {
 				alert('Transaction Hash: ' + JSON.stringify(error))
 				setDisabled(false)
 			})
-	}, [web3])
+	}, [web3, amount])
 
 	return (
 		<div className='my-4'>
