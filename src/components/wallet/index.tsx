@@ -14,17 +14,21 @@ const Wallet = () => {
 
 	const handleShowUi = async () => {
 		setLoading(true)
-		if (!(await magic?.user.isLoggedIn())) {
-			alert('Please click disconnect and login again')
-		} else {
-			try {
-				await magic?.wallet.showUI()
-			} catch (e) {
+		try {
+			if (!(await magic?.user.isLoggedIn())) {
 				alert('Please click disconnect and login again')
-				console.log(e)
-			} finally {
-				setLoading(false)
+			} else {
+				try {
+					await magic?.wallet.showUI()
+				} catch (e) {
+					alert('Please click disconnect and login again')
+					console.log(e)
+				} finally {
+					setLoading(false)
+				}
 			}
+		} catch (error) {
+			console.log(`Error while showing ui ${JSON.stringify(error)}`)
 		}
 	}
 

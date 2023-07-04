@@ -12,8 +12,12 @@ const Header = (props: HeaderProps) => {
 
 	const handleDisconnect = () => {
 		;(async () => {
-			if (await magic?.user.isLoggedIn()) {
-				await magic?.user.logout()
+			try {
+				if (await magic?.user.isLoggedIn()) {
+					await magic?.user.logout()
+				}
+			} catch (error) {
+				console.log('disconnect error: ' + JSON.stringify(error))
 			}
 		})()
 		localStorage.setItem('user', '')

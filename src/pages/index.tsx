@@ -4,6 +4,8 @@ import {MagicProvier, useMagic} from '@/components/provider/MagicPrrovider'
 import Wallet from '@/components/wallet'
 import {Network, NetworkOption, getFormattedNetwork} from '@/utils/network'
 import {useEffect, useState} from 'react'
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
 	const {magic} = useMagic()
@@ -19,6 +21,7 @@ export default function Home() {
 	}, [])
 	return (
 		<MagicProvier network={selectedNetwork}>
+			<ToastContainer />
 			<div className='home-page'>
 				<Header
 					disconnectedCallback={() => {

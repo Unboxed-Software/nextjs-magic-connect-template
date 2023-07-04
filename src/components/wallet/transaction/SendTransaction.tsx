@@ -1,14 +1,15 @@
 import CardBody from '@/components/card/CardBody'
 import {useMagic} from '@/components/provider/MagicPrrovider'
+import Toast from '@/utils/Toast'
 import {useCallback, useEffect, useState} from 'react'
 import Web3, {Transaction} from 'web3'
 
 const SendTransaction = () => {
-	const {web3} = useMagic()
+	const {web3, magic} = useMagic()
 
 	const [account, setAccount] = useState<string | null>(null)
 	const [receiver, setReceiver] = useState<string | null>(null)
-	const [amount, setAmount] = useState<string | null>(null)
+	const [amount, setAmount] = useState<number | null>(null)
 	const [disabled, setDisabled] = useState(false)
 
 	useEffect(() => {
@@ -19,30 +20,35 @@ const SendTransaction = () => {
 		setDisabled(receiver == null || amount == null)
 	}, [receiver, amount])
 
-	const handleSendTransaction = useCallback(() => {
+	const handleSendTransaction = useCallback(async () => {
 		setDisabled(true)
+		const isLoggedIn = await magic?.user.isLoggedIn()
+		console.log('amount: ' + isLoggedIn)
 		const transactionParams: Transaction = {
 			from: account!,
 			to: receiver,
 			gas: 21000,
-			value: web3?.utils.toWei(amount!, 'ether'),
+			value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
 		}
 
 		web3?.eth
 			.sendTransaction(transactionParams)
 			.on('transactionHash', (hash) => {
-				setReceiver(null)
-				setAmount(null)
-				alert('Transaction Hash: ' + hash)
+				Toast({
+					message: 'Transaction success with hash: ' + hash,
+					type: 'success',
+				})
 			})
-			.on('receipt', (receipt) => {
-				alert('Transaction Hash: ' + JSON.stringify(receipt))
+			.then((receipt) => {
+				setReceiver('')
+				setAmount(0)
 			})
 			.catch((error) => {
-				alert('Transaction Hash: ' + JSON.stringify(error))
+				console.log('error: ' + JSON.stringify(error))
+				Toast({message: 'Transaction faild', type: 'error'})
 				setDisabled(false)
 			})
-	}, [web3])
+	}, [web3, amount, receiver])
 
 	return (
 		<div className='my-4'>
@@ -63,8 +69,10 @@ const SendTransaction = () => {
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
 				/>
 				<input
-					onChange={(e) => setAmount(e.target.value)}
-					value={amount as string}
+					onChange={(e) =>
+						setAmount(e.target.value as unknown as number)
+					}
+					value={amount as number}
 					type='number'
 					placeholder='Amount (ETH)'
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'

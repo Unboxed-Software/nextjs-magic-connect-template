@@ -32,7 +32,7 @@ const Balance = () => {
 			setLoading(false)
 		} catch (e) {
 			setLoading(false)
-			console.log(e)
+			console.log('get balance error: ' + JSON.stringify(e))
 		}
 	}
 

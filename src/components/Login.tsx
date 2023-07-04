@@ -2,6 +2,8 @@ import {Network, NetworkOption, getFormattedNetwork} from '@/utils/network'
 import {useMagic} from './provider/MagicPrrovider'
 import {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import classNames from 'classnames'
+import {toast} from 'react-toastify'
+import Toast from '@/utils/Toast'
 
 export type Props = {
 	onChange: (value: string) => void
@@ -16,14 +18,20 @@ const Login = ({onChange, selectedNetwork, setAccount}: Props) => {
 	const handleConnect = async () => {
 		setLoginInProgress(true)
 		try {
+			if (magic == null) {
+				console.log('no magic')
+			}
 			const accounts = await magic?.wallet.connectWithUI()
 			if (accounts) {
 				localStorage.setItem('user', accounts[0])
 				setAccount(accounts[0])
 				setLoginInProgress(false)
 			}
-		} catch (e) {
+		} catch (e: any) {
 			console.log(JSON.stringify(e))
+			if (e.code == '-32603') {
+				Toast({message: 'Login cancelled by user', type: 'error'})
+			}
 			setLoginInProgress(false)
 		}
 	}

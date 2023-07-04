@@ -1,4 +1,5 @@
 import {useMagic} from '@/components/provider/MagicPrrovider'
+import Toast from '@/utils/Toast'
 import {recoverPersonalSignature} from '@metamask/eth-sig-util'
 import {useCallback, useEffect, useState} from 'react'
 
@@ -18,26 +19,33 @@ const SignMessage = () => {
 	}, [message])
 
 	const handleSendMessage = useCallback(async () => {
-		const signedMessage = await web3?.eth.personal.sign(
-			message!,
-			account!,
-			''
-		)
+		try {
+			const signedMessage = await web3?.eth.personal.sign(
+				message!,
+				account!,
+				''
+			)
 
-		const recoveredAddress = recoverPersonalSignature({
-			data: message!,
-			signature: signedMessage as string,
-		})
+			const recoveredAddress = recoverPersonalSignature({
+				data: message!,
+				signature: signedMessage as string,
+			})
 
-		if (
-			recoveredAddress.toLocaleLowerCase() == account?.toLocaleLowerCase()
-		) {
-			alert('Sign success')
-			setMessage(null)
-		} else {
-			alert('Sign failed')
+			if (
+				recoveredAddress.toLocaleLowerCase() ==
+				account?.toLocaleLowerCase()
+			) {
+				setMessage('')
+				Toast({message: 'Message signed', type: 'success'})
+			} else {
+				Toast({message: 'Message signing failed', type: 'error'})
+			}
+		} catch (error) {
+			console.log(
+				`Error signing personal message ${JSON.stringify(error)}`
+			)
 		}
-	}, [web3])
+	}, [web3, message])
 
 	return (
 		<div className='my-4'>
