@@ -20,6 +20,7 @@ const SendTransaction = () => {
 		setDisabled(receiver == null || amount == null)
 	}, [receiver, amount])
 
+
 	const handleSendTransaction = useCallback(async () => {
 		try {
 			setDisabled(true)
