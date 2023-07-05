@@ -21,33 +21,59 @@ const SendTransaction = () => {
 	}, [receiver, amount])
 
 	const handleSendTransaction = useCallback(async () => {
-		setDisabled(true)
-		const isLoggedIn = await magic?.user.isLoggedIn()
-		console.log('amount: ' + isLoggedIn)
-		const transactionParams: Transaction = {
-			from: account!,
-			to: receiver,
-			gas: 21000,
-			value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
-		}
+		try {
+			setDisabled(true)
+			const isLoggedIn = await magic?.user.isLoggedIn()
 
-		web3?.eth
-			.sendTransaction(transactionParams)
-			.on('transactionHash', (hash) => {
-				Toast({
-					message: 'Transaction success with hash: ' + hash,
-					type: 'success',
+			if (!isLoggedIn) {
+				try {
+					if (magic == null) {
+						console.log('no magic')
+					}
+					const accounts = await magic?.wallet.connectWithUI()
+					if (accounts) {
+						localStorage.setItem('user', accounts[0])
+						setAccount(accounts[0])
+					}
+				} catch (e: any) {
+					console.log(JSON.stringify(e))
+					if (e.code == '-32603') {
+						Toast({
+							message: 'Login cancelled by user',
+							type: 'error',
+						})
+					}
+				}
+			}
+			const transactionParams: Transaction = {
+				from: account!,
+				to: receiver,
+				gas: 21000,
+				value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
+			}
+
+			web3?.eth
+				.sendTransaction(transactionParams)
+				.on('transactionHash', (hash) => {
+					Toast({
+						message: 'Transaction success with hash: ' + hash,
+						type: 'success',
+					})
 				})
-			})
-			.then((receipt) => {
-				setReceiver('')
-				setAmount(0)
-			})
-			.catch((error) => {
-				console.log('error: ' + JSON.stringify(error))
-				Toast({message: 'Transaction faild', type: 'error'})
-				setDisabled(false)
-			})
+				.then((receipt) => {
+					setReceiver('')
+					setAmount(0)
+				})
+				.catch((error) => {
+					console.log('error: ' + JSON.stringify(error))
+					Toast({message: 'Transaction faild', type: 'error'})
+					setDisabled(false)
+				})
+		} catch (e) {
+			console.log('error in send tsx: ' + e)
+			Toast({message: 'Transaction faild', type: 'error'})
+			setDisabled(false)
+		}
 	}, [web3, amount, receiver])
 
 	return (
