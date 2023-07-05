@@ -28,11 +28,13 @@ const Balance = () => {
 				setBalance(
 					`${web3?.utils.fromWei(walletBalance, 'ether')} ether`
 				)
+			} else {
+				setBalance('0 ether')
 			}
 			setLoading(false)
 		} catch (e) {
 			setLoading(false)
-			console.log(e)
+			console.log('get balance error: ' + JSON.stringify(e))
 		}
 	}
 

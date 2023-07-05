@@ -20,14 +20,14 @@ export const getFormattedNetwork = (network: string): NetworkOption => {
 		case Network.POLY_TESTNET:
 			return {
 				value: Network.POLY_TESTNET,
-				rpcUrl: 'https://matic-mumbai.chainstacklabs.com',
+				rpcUrl: 'https://rpc-mumbai.maticvigil.com',
 				chainId: 80001,
 			}
 
 		default:
 			return {
 				value: Network.POLY_TESTNET,
-				rpcUrl: 'https://matic-mumbai.chainstacklabs.com',
+				rpcUrl: 'https://rpc-mumbai.maticvigil.com',
 				chainId: 80001,
 			}
 	}

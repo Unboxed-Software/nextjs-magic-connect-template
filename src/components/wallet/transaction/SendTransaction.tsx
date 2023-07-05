@@ -1,14 +1,15 @@
 import CardBody from '@/components/card/CardBody'
 import {useMagic} from '@/components/provider/MagicPrrovider'
+import Toast from '@/utils/Toast'
 import {useCallback, useEffect, useState} from 'react'
 import Web3, {Transaction} from 'web3'
 
 const SendTransaction = () => {
-	const {web3} = useMagic()
+	const {web3, magic} = useMagic()
 
 	const [account, setAccount] = useState<string | null>(null)
 	const [receiver, setReceiver] = useState<string | null>(null)
-	const [amount, setAmount] = useState<string | null>(null)
+	const [amount, setAmount] = useState<number | null>(null)
 	const [disabled, setDisabled] = useState(false)
 
 	useEffect(() => {
@@ -19,32 +20,62 @@ const SendTransaction = () => {
 		setDisabled(receiver == null || amount == null)
 	}, [receiver, amount])
 
-	const handleSendTransaction = useCallback(() => {
-		setDisabled(true)
-		const transactionParams: Transaction = {
-			from: account!,
-			to: receiver,
-			gas: 21000,
-			value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
-		}
 
-		web3?.eth
-			.sendTransaction(transactionParams)
-			.on('transactionHash', (hash) => {
-				setReceiver(null)
-				setAmount(null)
-				alert('Transaction Hash: ' + hash)
-			})
-			.on('receipt', (receipt) => {
-				setReceiver(null)
-				setAmount(null)
-				alert('Transaction Hash: ' + JSON.stringify(receipt))
-			})
-			.catch((error) => {
-				alert('Transaction Hash: ' + JSON.stringify(error))
-				setDisabled(false)
-			})
-	}, [web3, amount])
+	const handleSendTransaction = useCallback(async () => {
+		try {
+			setDisabled(true)
+			const isLoggedIn = await magic?.user.isLoggedIn()
+
+			if (!isLoggedIn) {
+				try {
+					if (magic == null) {
+						console.log('no magic')
+					}
+					const accounts = await magic?.wallet.connectWithUI()
+					if (accounts) {
+						localStorage.setItem('user', accounts[0])
+						setAccount(accounts[0])
+					}
+				} catch (e: any) {
+					console.log(JSON.stringify(e))
+					if (e.code == '-32603') {
+						Toast({
+							message: 'Login cancelled by user',
+							type: 'error',
+						})
+					}
+				}
+			}
+			const transactionParams: Transaction = {
+				from: account!,
+				to: receiver,
+				gas: 21000,
+				value: web3?.utils.toWei(amount! as unknown as number, 'ether'),
+			}
+
+			web3?.eth
+				.sendTransaction(transactionParams)
+				.on('transactionHash', (hash) => {
+					Toast({
+						message: 'Transaction success with hash: ' + hash,
+						type: 'success',
+					})
+				})
+				.then((receipt) => {
+					setReceiver('')
+					setAmount(0)
+				})
+				.catch((error) => {
+					console.log('error: ' + JSON.stringify(error))
+					Toast({message: 'Transaction faild', type: 'error'})
+					setDisabled(false)
+				})
+		} catch (e) {
+			console.log('error in send tsx: ' + e)
+			Toast({message: 'Transaction faild', type: 'error'})
+			setDisabled(false)
+		}
+	}, [web3, amount, receiver])
 
 	return (
 		<div className='my-4'>
@@ -65,8 +96,10 @@ const SendTransaction = () => {
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
 				/>
 				<input
-					onChange={(e) => setAmount(e.target.value)}
-					value={amount as string}
+					onChange={(e) =>
+						setAmount(e.target.value as unknown as number)
+					}
+					value={amount as number}
 					type='number'
 					placeholder='Amount (ETH)'
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
