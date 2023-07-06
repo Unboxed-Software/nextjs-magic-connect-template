@@ -18,9 +18,6 @@ const Login = ({onChange, selectedNetwork, setAccount}: Props) => {
 	const handleConnect = async () => {
 		setLoginInProgress(true)
 		try {
-			if (magic == null) {
-				console.log('no magic')
-			}
 			const accounts = await magic?.wallet.connectWithUI()
 			if (accounts) {
 				localStorage.setItem('user', accounts[0])

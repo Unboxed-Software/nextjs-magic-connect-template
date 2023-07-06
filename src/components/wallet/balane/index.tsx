@@ -3,6 +3,7 @@ import CardHeader from '@/components/card/CardHeader'
 import CardBody from '@/components/card/CardBody'
 import {useMagic} from '@/components/provider/MagicPrrovider'
 import {useEffect, useState} from 'react'
+import Toast from '@/utils/Toast'
 
 const Balance = () => {
 	const {web3, magic} = useMagic()
@@ -35,6 +36,7 @@ const Balance = () => {
 		} catch (e) {
 			setLoading(false)
 			console.log('get balance error: ' + JSON.stringify(e))
+			Toast({message: 'Something went wrong', type: 'error'})
 		}
 	}
 

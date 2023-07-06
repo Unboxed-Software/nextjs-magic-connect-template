@@ -6,6 +6,7 @@ import Balance from './balane'
 import Address from './address'
 import SendTransaction from './transaction/SendTransaction'
 import SignMessage from './message/SignMessage'
+import Toast from '@/utils/Toast'
 
 const Wallet = () => {
 	const {magic} = useMagic()
@@ -29,6 +30,7 @@ const Wallet = () => {
 			}
 		} catch (error) {
 			console.log(`Error while showing ui ${JSON.stringify(error)}`)
+			Toast({message: 'Something went wrong', type: 'error'})
 		}
 	}
 

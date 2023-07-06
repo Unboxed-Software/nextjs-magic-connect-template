@@ -44,6 +44,7 @@ const SignMessage = () => {
 			console.log(
 				`Error signing personal message ${JSON.stringify(error)}`
 			)
+			Toast({message: 'Something went wrong', type: 'error'})
 		}
 	}, [web3, message])
 

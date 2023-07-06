@@ -3,6 +3,7 @@ import Link from 'next/link'
 import MagicColorWhite from 'public/magic_color_white.svg'
 import {useEffect, useState} from 'react'
 import {useMagic} from './provider/MagicPrrovider'
+import Toast from '@/utils/Toast'
 type HeaderProps = {
 	disconnectedCallback: () => void
 	account: string | null
@@ -17,6 +18,7 @@ const Header = (props: HeaderProps) => {
 					await magic?.user.logout()
 				}
 			} catch (error) {
+				Toast({message: 'Something went wrong', type: 'error'})
 				console.log('disconnect error: ' + JSON.stringify(error))
 			}
 		})()

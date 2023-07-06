@@ -20,31 +20,13 @@ const SendTransaction = () => {
 		setDisabled(receiver == null || amount == null)
 	}, [receiver, amount])
 
-
 	const handleSendTransaction = useCallback(async () => {
 		try {
 			setDisabled(true)
 			const isLoggedIn = await magic?.user.isLoggedIn()
 
 			if (!isLoggedIn) {
-				try {
-					if (magic == null) {
-						console.log('no magic')
-					}
-					const accounts = await magic?.wallet.connectWithUI()
-					if (accounts) {
-						localStorage.setItem('user', accounts[0])
-						setAccount(accounts[0])
-					}
-				} catch (e: any) {
-					console.log(JSON.stringify(e))
-					if (e.code == '-32603') {
-						Toast({
-							message: 'Login cancelled by user',
-							type: 'error',
-						})
-					}
-				}
+				alert('Please disconnect and login again')
 			}
 			const transactionParams: Transaction = {
 				from: account!,
@@ -67,12 +49,12 @@ const SendTransaction = () => {
 				})
 				.catch((error) => {
 					console.log('error: ' + JSON.stringify(error))
-					Toast({message: 'Transaction faild', type: 'error'})
+					Toast({message: 'Transaction failed', type: 'error'})
 					setDisabled(false)
 				})
 		} catch (e) {
 			console.log('error in send tsx: ' + e)
-			Toast({message: 'Transaction faild', type: 'error'})
+			Toast({message: 'Transaction failed', type: 'error'})
 			setDisabled(false)
 		}
 	}, [web3, amount, receiver])

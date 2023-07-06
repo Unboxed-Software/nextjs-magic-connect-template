@@ -41,7 +41,7 @@ export const MagicProvier = (props: ProviderProps) => {
 		} else {
 			currentNetwork = {...props.network!}
 		}
-		const magic = new Magic('pk_live_8D6C562ABCA3140A', {
+		const magic = new Magic(process.env.MAGIC_API_KEY!, {
 			network: {
 				rpcUrl: currentNetwork.rpcUrl,
 				chainId: currentNetwork.chainId,
