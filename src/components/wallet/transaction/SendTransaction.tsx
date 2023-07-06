@@ -1,5 +1,5 @@
 import CardBody from '@/components/card/CardBody'
-import {useMagic} from '@/components/provider/MagicPrrovider'
+import {useMagic} from '@/components/provider/MagicProvider'
 import Toast from '@/utils/Toast'
 import {useCallback, useEffect, useState} from 'react'
 import Web3, {Transaction} from 'web3'

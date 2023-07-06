@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import Spinner from '../ui/Spinner'
+import Spinner from './Spinner'
 import classNames from 'classnames'
 import ActionButton, {ActionProps} from './ActionButton'
 

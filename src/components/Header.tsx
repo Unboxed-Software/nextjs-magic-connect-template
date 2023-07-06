@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import MagicColorWhite from 'public/magic_color_white.svg'
 import {useEffect, useState} from 'react'
-import {useMagic} from './provider/MagicPrrovider'
+import {useMagic} from './provider/MagicProvider'
 import Toast from '@/utils/Toast'
 type HeaderProps = {
 	disconnectedCallback: () => void

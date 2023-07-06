@@ -1,6 +1,6 @@
 import Header from '@/components/Header'
 import Login from '@/components/Login'
-import {MagicProvier, useMagic} from '@/components/provider/MagicPrrovider'
+import {MagicProvider, useMagic} from '@/components/provider/MagicProvider'
 import Wallet from '@/components/wallet'
 import {Network, NetworkOption, getFormattedNetwork} from '@/utils/network'
 import {useEffect, useState} from 'react'
@@ -20,7 +20,7 @@ export default function Home() {
 		setAccount(localStorage.getItem('user'))
 	}, [])
 	return (
-		<MagicProvier network={selectedNetwork}>
+		<MagicProvider network={selectedNetwork}>
 			<ToastContainer />
 			<div className='home-page'>
 				<Header
@@ -43,6 +43,6 @@ export default function Home() {
 					)}
 				</div>
 			</div>
-		</MagicProvier>
+		</MagicProvider>
 	)
 }

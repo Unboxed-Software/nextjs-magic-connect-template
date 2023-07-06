@@ -29,7 +29,7 @@ type ProviderProps = {
 	children: ReactNode
 }
 
-export const MagicProvier = (props: ProviderProps) => {
+export const MagicProvider = (props: ProviderProps) => {
 	const [network, setNetwork] = useState<NetworkOption | null>(props.network)
 	const [magic, setMagic] = useState<Magic | null>(null)
 	const [web3, setWeb3] = useState<Web3 | null>(null)

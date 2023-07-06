@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import Spinner from '../ui/Spinner'
+import Spinner from './Spinner'
 import {useState} from 'react'
 
 export type ActionProps = {

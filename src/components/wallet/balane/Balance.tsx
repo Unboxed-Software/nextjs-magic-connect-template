@@ -1,7 +1,7 @@
 import Card from '@/components/card/Card'
 import CardHeader from '@/components/card/CardHeader'
 import CardBody from '@/components/card/CardBody'
-import {useMagic} from '@/components/provider/MagicPrrovider'
+import {useMagic} from '@/components/provider/MagicProvider'
 import {useEffect, useState} from 'react'
 import Toast from '@/utils/Toast'
 

@@ -1,5 +1,5 @@
 import {Network, NetworkOption, getFormattedNetwork} from '@/utils/network'
-import {useMagic} from './provider/MagicPrrovider'
+import {useMagic} from './provider/MagicProvider'
 import {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import classNames from 'classnames'
 import {toast} from 'react-toastify'
@@ -42,7 +42,8 @@ const Login = ({onChange, selectedNetwork, setAccount}: Props) => {
 				{Object.keys(Network).map((key) => (
 					<option
 						className='text-black'
-						value={getFormattedNetwork(Network[key]).value}>
+						value={getFormattedNetwork(Network[key]).value}
+						key={key}>
 						{Network[key]}
 					</option>
 				))}

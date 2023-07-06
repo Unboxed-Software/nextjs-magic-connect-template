@@ -1,4 +1,4 @@
-import {useMagic} from '@/components/provider/MagicPrrovider'
+import {useMagic} from '@/components/provider/MagicProvider'
 import Toast from '@/utils/Toast'
 import {recoverPersonalSignature} from '@metamask/eth-sig-util'
 import {useCallback, useEffect, useState} from 'react'
