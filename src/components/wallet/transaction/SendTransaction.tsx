@@ -1,33 +1,49 @@
 import CardBody from '@/components/card/CardBody'
+import Spinner from '@/components/card/Spinner'
 import {useMagic} from '@/components/provider/MagicProvider'
 import Toast from '@/utils/Toast'
+import {error} from 'console'
 import {useCallback, useEffect, useState} from 'react'
 import Web3, {Transaction} from 'web3'
+import {isAddress} from 'web3-validator'
 
 const SendTransaction = () => {
 	const {web3, magic} = useMagic()
 
 	const [account, setAccount] = useState<string | null>(null)
 	const [receiver, setReceiver] = useState<string | null>(null)
+	const [receiverError, setReceiverError] = useState(false)
 	const [amount, setAmount] = useState<number | null>(null)
 	const [disabled, setDisabled] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		setAccount(localStorage.getItem('user'))
 	}, [])
 
 	useEffect(() => {
-		setDisabled(receiver == null || amount == null)
+		console.log('loading: ' + loading)
+	}, [loading])
+
+	useEffect(() => {
+		setDisabled(
+			receiver == null ||
+				receiver.length == 0 ||
+				amount == null ||
+				amount <= 0
+		)
+
+		if (receiverError) {
+			setReceiverError(false)
+		}
 	}, [receiver, amount])
 
-	const handleSendTransaction = useCallback(async () => {
-		try {
-			setDisabled(true)
-			const isLoggedIn = await magic?.user.isLoggedIn()
-
-			if (!isLoggedIn) {
-				alert('Please disconnect and login again')
-			}
+	const handleSendTransaction = useCallback(() => {
+		setDisabled(true)
+		if (!isAddress(receiver as string)) {
+			setReceiverError(true)
+		} else {
+			setLoading(true)
 			const transactionParams: Transaction = {
 				from: account!,
 				to: receiver,
@@ -42,20 +58,21 @@ const SendTransaction = () => {
 						message: 'Transaction success with hash: ' + hash,
 						type: 'success',
 					})
-				})
-				.then((receipt) => {
-					setReceiver('')
-					setAmount(0)
+					setReceiver(null)
+					setAmount(null)
 				})
 				.catch((error) => {
-					console.log('error: ' + JSON.stringify(error))
-					Toast({message: 'Transaction failed', type: 'error'})
-					setDisabled(false)
+					debugger
+					console.log('send tsx error: ' + JSON.stringify(error))
+					Toast({
+						message: 'Transaction failed',
+						type: 'error',
+					})
 				})
-		} catch (e) {
-			console.log('error in send tsx: ' + e)
-			Toast({message: 'Transaction failed', type: 'error'})
-			setDisabled(false)
+				.finally(() => {
+					setDisabled(false)
+					setLoading(false)
+				})
 		}
 	}, [web3, amount, receiver])
 
@@ -63,10 +80,10 @@ const SendTransaction = () => {
 		<div className='my-4'>
 			<div className='flex items-center justify-center'>
 				<a
-					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF] text-center text-white font-medium hover:bg-[#A799FF]/[0.5] cursor-pointer'
+					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF]/[0.7] text-center text-white font-medium hover:bg-[#A799FF] cursor-pointer'
 					href='https://faucet.polygon.technology/'
 					target='_blank'>
-					Get Test Eth
+					Get Test Matic
 				</a>
 			</div>
 			<hr className='mt-2 bg-[#BDBDBD]' />
@@ -75,8 +92,13 @@ const SendTransaction = () => {
 					onChange={(e) => setReceiver(e.target.value)}
 					placeholder='Receiver Address'
 					value={receiver as string}
-					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
+					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full mt-2 mb-1'
 				/>
+				{receiverError && (
+					<span className='text-xs text-red-700 justify-self-start self-start'>
+						Enter a valid address
+					</span>
+				)}
 				<input
 					onChange={(e) =>
 						setAmount(e.target.value as unknown as number)
@@ -87,10 +109,10 @@ const SendTransaction = () => {
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
 				/>
 				<button
-					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF] enabled:hover:bg-[#A799FF]/[0.5] text-center text-white font-medium disabled:cursor-default cursor-pointer'
+					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF]/[0.7] disabled:bg-gray-200 disabled:bg-gray-200 enabled:hover:bg-[#A799FF] text-center text-white font-medium disabled:cursor-default cursor-pointer flex items-center justify-center'
 					disabled={disabled}
-					onClick={() => handleSendTransaction()}>
-					Send Transaction
+					onClick={handleSendTransaction}>
+					{loading ? <Spinner /> : 'Send Transaction'}
 				</button>
 			</div>
 		</div>

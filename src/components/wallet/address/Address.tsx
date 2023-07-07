@@ -9,7 +9,7 @@ const Address = () => {
 		setAccount(account)
 	}, [])
 
-	return <CardBody label='Address' value={account as string} needDivider />
+	return <CardBody label='Address' value={account as string} />
 }
 
 export default Address

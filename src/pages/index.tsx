@@ -22,26 +22,35 @@ export default function Home() {
 	return (
 		<MagicProvider network={selectedNetwork}>
 			<ToastContainer />
-			<div className='home-page'>
-				<Header
-					disconnectedCallback={() => {
-						setAccount(null)
-					}}
-					account={account}
-				/>
-				<div className='mt-10'>
-					{account ? (
-						<Wallet />
-					) : (
-						<Login
-							onChange={(value: string) =>
-								setSelectedNetwork(getFormattedNetwork(value))
-							}
-							selectedNetwork={selectedNetwork}
-							setAccount={setAccount}
+			<div
+				className='home-page'
+				style={
+					!account
+						? {
+								backgroundSize: '100vw 100vh',
+								backgroundRepeat: 'no-repeat',
+								backgroundImage: "url('/background.svg')",
+						  }
+						: {}
+				}>
+				{account ? (
+					<>
+						<Header account={account} />
+						<Wallet
+							disconnectCallback={() => {
+								setAccount(null)
+							}}
 						/>
-					)}
-				</div>
+					</>
+				) : (
+					<Login
+						onChange={(value: string) =>
+							setSelectedNetwork(getFormattedNetwork(value))
+						}
+						selectedNetwork={selectedNetwork}
+						setAccount={setAccount}
+					/>
+				)}
 			</div>
 		</MagicProvider>
 	)

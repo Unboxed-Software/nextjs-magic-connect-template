@@ -8,7 +8,7 @@ import Toast from '@/utils/Toast'
 const Balance = () => {
 	const {web3, magic} = useMagic()
 
-	const [balance, setBalance] = useState<string | undefined>('0 ether')
+	const [balance, setBalance] = useState<string | undefined>('0 matic')
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
@@ -17,7 +17,7 @@ const Balance = () => {
 
 	const getBalance = async () => {
 		setLoading(true)
-		setBalance('... ether')
+		setBalance('... matic')
 		try {
 			const address = localStorage.getItem('user')
 			if (!address) {
@@ -27,10 +27,10 @@ const Balance = () => {
 
 			if (walletBalance) {
 				setBalance(
-					`${web3?.utils.fromWei(walletBalance, 'ether')} ether`
+					`${web3?.utils.fromWei(walletBalance, 'ether')} matic`
 				)
 			} else {
-				setBalance('0 ether')
+				setBalance('0 matic')
 			}
 			setLoading(false)
 		} catch (e) {

@@ -1,3 +1,4 @@
+import Spinner from '@/components/card/Spinner'
 import {useMagic} from '@/components/provider/MagicProvider'
 import Toast from '@/utils/Toast'
 import {recoverPersonalSignature} from '@metamask/eth-sig-util'
@@ -9,6 +10,7 @@ const SignMessage = () => {
 	const [account, setAccount] = useState<string | null>(null)
 	const [message, setMessage] = useState<string | null>(null)
 	const [disabled, setDisabled] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		setAccount(localStorage.getItem('user'))
@@ -45,6 +47,8 @@ const SignMessage = () => {
 				`Error signing personal message ${JSON.stringify(error)}`
 			)
 			Toast({message: 'Something went wrong', type: 'error'})
+		} finally {
+			setLoading(false)
 		}
 	}, [web3, message])
 
@@ -58,10 +62,13 @@ const SignMessage = () => {
 					className='p-2 border-solid border-[1px] border-[#A799FF] rounded-lg w-full my-2'
 				/>
 				<button
-					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF] enabled:hover:bg-[#A799FF]/[0.5] text-center text-white font-medium disabled:cursor-default cursor-pointer'
+					className='w-full rounded-3xl px-8 py-2 bg-[#A799FF]/[0.7] disabled:bg-gray-200 enabled:hover:bg-[#A799FF] text-center text-white font-medium disabled:cursor-default cursor-pointer flex items-center justify-center'
 					disabled={disabled}
-					onClick={() => handleSendMessage()}>
-					Sign Message
+					onClick={() => {
+						setLoading(true)
+						handleSendMessage()
+					}}>
+					{loading ? <Spinner /> : 'Send Transaction'}
 				</button>
 			</div>
 		</div>

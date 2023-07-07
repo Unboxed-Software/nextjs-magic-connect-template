@@ -8,7 +8,7 @@ import {
 	useMemo,
 	useState,
 } from 'react'
-import Web3, {net} from 'web3'
+import Web3 from 'web3'
 
 export type MagicContextType = {
 	network: NetworkOption | null

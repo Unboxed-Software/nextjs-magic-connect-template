@@ -7,8 +7,10 @@ import Address from './address/Address'
 import SendTransaction from './transaction/SendTransaction'
 import SignMessage from './message/SignMessage'
 import Toast from '@/utils/Toast'
+import Status from './status/Status'
+import DevLinks from '../DevLinks'
 
-const Wallet = () => {
+const Wallet = ({disconnectCallback}: {disconnectCallback: () => void}) => {
 	const {magic} = useMagic()
 
 	const [loading, setLoading] = useState(false)
@@ -35,32 +37,33 @@ const Wallet = () => {
 	}
 
 	return (
-		<div className='min-h-[100%]'>
-			<div className='grid gap-4 grid-cols-5 p-4 mx-[10%]'>
-				<Card>
-					<CardHeader
-						title='Wallet'
-						action={{
-							title: 'Show',
-							type: 'info',
-							onClick: () => {
-								handleShowUi()
-							},
-							loading,
-						}}
-					/>
-					<Balance />
-					<Address />
-				</Card>
-				<Card>
-					<CardHeader title='Send Transaction' />
-					<SendTransaction />
-				</Card>
-				<Card>
-					<CardHeader title='Send Transaction' />
-					<SignMessage />
-				</Card>
-			</div>
+		<div className='min-h-[100%] w-full flex flex-col items-center align-center absolute top-[25%]'>
+			<Card>
+				<CardHeader
+					title='Wallet'
+					action={{
+						title: 'Show',
+						type: 'info',
+						onClick: () => {
+							handleShowUi()
+						},
+						loading,
+					}}
+				/>
+				<Status disconnectCallback={disconnectCallback} />
+				<Balance />
+				<Address />
+			</Card>
+			<Card>
+				<CardHeader title='Send Transaction' />
+				<SendTransaction />
+			</Card>
+			<Card>
+				<CardHeader title='Send Transaction' />
+				<SignMessage />
+			</Card>
+
+			<DevLinks primary />
 		</div>
 	)
 }
