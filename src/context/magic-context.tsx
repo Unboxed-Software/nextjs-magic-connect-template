@@ -47,7 +47,7 @@ const MagicProvider = ({ children }: { children: React.ReactNode }) => {
       setSelectedNetwork(storedNetwork)
       updateMagicInstance(storedNetwork)
     }
-  }, [])
+  }, [updateMagicInstance])
 
   return (
     <MagicContext.Provider

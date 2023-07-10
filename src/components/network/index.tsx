@@ -22,7 +22,7 @@ const Network = () => {
         console.log("SELECTED NETWORK: ", networkOption)
       }
     },
-    [selectedNetwork]
+    [selectedNetwork, updateMagicInstance]
   )
 
   const toggleDropdown = () => setIsOpen(!isOpen)

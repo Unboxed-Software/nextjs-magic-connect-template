@@ -27,9 +27,27 @@ const UserInfo = ({ setAccount }: Props) => {
   const network = localStorage.getItem("network")
   const tokenSymbol = network === Networks.Polygon ? "MATIC" : "ETH"
 
+  const getBalance = useCallback(async () => {
+    if (publicAddress && web3) {
+      const balance = await web3.eth.getBalance(publicAddress)
+      setBalance(web3.utils.fromWei(balance))
+      console.log("BALANCE: ", balance)
+    }
+  }, [web3, publicAddress])
+
+  const refresh = useCallback(async () => {
+    setIsRefreshing(true)
+    await getBalance()
+    setTimeout(() => {
+      setIsRefreshing(false)
+    }, 500)
+  }, [getBalance])
+
   useEffect(() => {
-    refresh()
-  }, [web3])
+    if (web3) {
+      refresh()
+    }
+  }, [web3, refresh])
 
   useEffect(() => {
     setBalance("...")
@@ -41,7 +59,7 @@ const UserInfo = ({ setAccount }: Props) => {
       localStorage.removeItem("user")
       setAccount(null)
     }
-  }, [magic])
+  }, [magic, setAccount])
 
   const copy = useCallback(() => {
     if (publicAddress && copied === "Copy") {
@@ -51,23 +69,7 @@ const UserInfo = ({ setAccount }: Props) => {
         setCopied("Copy")
       }, 1000)
     }
-  }, [])
-
-  const getBalance = useCallback(async () => {
-    if (publicAddress && web3) {
-      const balance = await web3.eth.getBalance(publicAddress)
-      setBalance(web3.utils.fromWei(balance))
-      console.log("BALANCE: ", balance)
-    }
-  }, [web3])
-
-  const refresh = useCallback(async () => {
-    setIsRefreshing(true)
-    await getBalance()
-    setTimeout(() => {
-      setIsRefreshing(false)
-    }, 500)
-  }, [web3])
+  }, [copied, publicAddress])
 
   return (
     <Card>

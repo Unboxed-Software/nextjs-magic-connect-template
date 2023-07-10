@@ -28,7 +28,7 @@ const Login = ({ setAccount }: Props) => {
       setDisabled(false)
       console.error(error)
     }
-  }, [magic])
+  }, [magic, setAccount])
 
   return (
     <div

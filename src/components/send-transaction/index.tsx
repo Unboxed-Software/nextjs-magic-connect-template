@@ -60,7 +60,7 @@ const SendTransaction = () => {
         console.error(error)
         setDisabled(false)
       })
-  }, [web3])
+  }, [web3, amount, publicAddress, toAddress])
 
   return (
     <Card>
