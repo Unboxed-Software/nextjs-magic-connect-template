@@ -59,7 +59,7 @@ const Wallet = ({disconnectCallback}: {disconnectCallback: () => void}) => {
 				<SendTransaction />
 			</Card>
 			<Card>
-				<CardHeader title='Send Transaction' />
+				<CardHeader title='Sign Personal Message' />
 				<SignMessage />
 			</Card>
 
