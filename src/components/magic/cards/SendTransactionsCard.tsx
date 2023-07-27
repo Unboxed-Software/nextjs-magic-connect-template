@@ -9,9 +9,8 @@ import Card from '../../ui/Card'
 import CardHeader from '../../ui/CardHeader'
 import TransactionHistory from '../../ui/TransactionHistory'
 import ErrorText from '../../ui/Error'
-import {Networks} from '../../../utils/networks'
-import {getFaucetUrl} from '../../../utils/faucet'
 import {useMagicContext} from '@/components/magic/MagicProvider'
+import {getFaucetUrl, getNetworkTokenFromUrl} from '@/utils/networks'
 
 const SendTransaction = () => {
 	const {web3} = useMagicContext()
@@ -23,7 +22,7 @@ const SendTransaction = () => {
 	const [amountError, setAmountError] = useState(false)
 	const publicAddress = localStorage.getItem('user')
 	const network = localStorage.getItem('network')
-	const tokenSymbol = network === Networks.Polygon ? 'MATIC' : 'ETH'
+	const tokenSymbol = getNetworkTokenFromUrl()
 
 	useEffect(() => {
 		setDisabled(!toAddress || !amount)

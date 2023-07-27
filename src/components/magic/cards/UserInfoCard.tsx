@@ -5,8 +5,8 @@ import Loading from 'public/loading.svg'
 import CardLabel from '../../ui/CardLabel'
 import Card from '../../ui/Card'
 import CardHeader from '../../ui/CardHeader'
-import {Networks} from '../../../utils/networks'
 import {useMagicContext} from '@/components/magic/MagicProvider'
+import {getNetworkTokenFromUrl} from '@/utils/networks'
 
 interface Props {
 	setAccount: React.Dispatch<React.SetStateAction<string | null>>
@@ -21,7 +21,7 @@ const UserInfo = ({setAccount}: Props) => {
 
 	const publicAddress = localStorage.getItem('user')
 	const network = localStorage.getItem('network')
-	const tokenSymbol = network === Networks.Polygon ? 'MATIC' : 'ETH'
+	const tokenSymbol = getNetworkTokenFromUrl()
 
 	const getBalance = useCallback(async () => {
 		if (publicAddress && web3) {
