@@ -3,8 +3,8 @@ import Disconnect from '../wallet-methods/Disconnect'
 import GetWalletInfo from '../wallet-methods/GetWalletInfo'
 import RequestUserInfo from '../wallet-methods/RequestUserInfo'
 import ShowUI from '../wallet-methods/ShowUi'
-import Divider from '../../ui/Divider'
-import Card from '../../ui/Card'
+import Divider from '../../ui/divider'
+import Card from '../../ui/card'
 import CardHeader from '../../ui/CardHeader'
 
 interface Props {

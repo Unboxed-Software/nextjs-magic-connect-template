@@ -7,7 +7,7 @@ interface Props {
 
 const CardHeader = ({children, id}: Props) => {
 	return (
-		<h1 className='card-header' id={id}>
+		<h1 className='text-xl font-semibold text-left mt-0 mb-[25px]' id={id}>
 			{children}
 		</h1>
 	)

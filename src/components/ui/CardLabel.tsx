@@ -9,12 +9,12 @@ interface Props {
 
 const CardLabel = ({leftHeader, rightAction, isDisconnect, ...rest}: Props) => {
 	return (
-		<div className='card-label-container' {...rest}>
-			<div className='card-label'>{leftHeader}</div>
+		<div className='flex justify-between items-center mb-3' {...rest}>
+			<div className='text-sm font-medium'>{leftHeader}</div>
 			{rightAction ? (
 				<div
-					className={`card-label ${
-						isDisconnect ? 'disconnect-button' : 'action-button'
+					className={`font-semibold text-sm font-medium hover:opacity-[0.7] active:scale-[0.98] cursor-pointer transition-[0.1s] ${
+						isDisconnect ? 'text-[#d43100]' : 'text-[#6851ff]'
 					}`}>
 					{rightAction}
 				</div>

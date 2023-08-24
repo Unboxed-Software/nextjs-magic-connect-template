@@ -1,16 +1,16 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import Image from 'next/image'
-import Divider from '../../ui/Divider'
+import Divider from '../../ui/divider'
 import FormButton from '../../ui/FormButton'
 import Link from 'public/link.svg'
-import Spacer from '../../ui/Spacer'
+import Spacer from '../../ui/spacer'
 import FormInput from '../../ui/FormInput'
-import Card from '../../ui/Card'
+import Card from '../../ui/card'
 import CardHeader from '../../ui/CardHeader'
 import TransactionHistory from '../../ui/TransactionHistory'
-import ErrorText from '../../ui/Error'
+import ErrorText from '../../ui/error'
 import {useMagicContext} from '@/components/magic/MagicProvider'
-import {getFaucetUrl, getNetworkTokenFromUrl} from '@/utils/networks'
+import {getFaucetUrl, getNetworkToken} from '@/utils/networks'
 
 const SendTransaction = () => {
 	const {web3} = useMagicContext()
@@ -22,7 +22,7 @@ const SendTransaction = () => {
 	const [amountError, setAmountError] = useState(false)
 	const publicAddress = localStorage.getItem('user')
 	const network = localStorage.getItem('network')
-	const tokenSymbol = getNetworkTokenFromUrl()
+	const tokenSymbol = getNetworkToken()
 
 	useEffect(() => {
 		setDisabled(!toAddress || !amount)
@@ -64,17 +64,16 @@ const SendTransaction = () => {
 	return (
 		<Card>
 			<CardHeader id='send-transaction'>Send Transaction</CardHeader>
-			<a href={getFaucetUrl()} target='_blank' rel='noreferrer'>
-				<FormButton onClick={() => null} disabled={false}>
-					Get Test {tokenSymbol}{' '}
-					<Image
-						src={Link}
-						alt='link-icon'
-						style={{marginLeft: '3px'}}
-					/>
-				</FormButton>
-			</a>
-			<Divider />
+			{getFaucetUrl() && (
+				<div>
+					<a href={getFaucetUrl()} target='_blank' rel='noreferrer'>
+						<FormButton onClick={() => null} disabled={false}>
+							Get Test {getNetworkToken()}
+						</FormButton>
+					</a>
+					<Divider />
+				</div>
+			)}
 			<FormInput
 				value={toAddress}
 				onChange={(e: any) => setToAddress(e.target.value)}

@@ -26,15 +26,17 @@ const Disconnect = ({setAccount}: Props) => {
 	}, [magic, setAccount])
 
 	return (
-		<div className='wallet-method-container'>
+		<div className='text-left'>
 			<button
-				className='wallet-method'
+				className='w-fit text-[#522fd4] bg-[#edebff] text-base cursor-pointer font-medium transition-[0.1s]
+				h-8 px-3 py-1.5 rounded-[32px] border-[none] active:enabled:opacity-50 active:enabled:scale-[0.99] font-[monospace]
+				hover:enabled:bg-gradient-to-r from-[#0000000d] to-[#0000000d] active:enabled:bg-[#0000000d]'
 				onClick={disconnect}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '115px'}}>
+					<div className='w-[115px] text-center flex items-center justify-center cursor-default'>
 						<Image
-							className='loading'
+							className='animate-spin cursor-default'
 							alt='loading'
 							src={Loading}
 						/>
@@ -43,7 +45,7 @@ const Disconnect = ({setAccount}: Props) => {
 					'disconnect()'
 				)}
 			</button>
-			<div className='wallet-method-desc'>
+			<div className='text-[#77767a] text-left text-sm mt-2.5'>
 				Disconnects user from dApp.
 			</div>
 		</div>

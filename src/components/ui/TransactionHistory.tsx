@@ -9,18 +9,13 @@ const TransactionHistory = () => {
 
 	return (
 		<a
-			className='action-button'
+			className='font-semibold text-[#6851ff] cursor-pointer transition-[0.1s] hover:opacity-[0.7] active:scale-[0.9]'
 			href={`${blockExplorer}/address/${publicAddress}`}
 			target='_blank'
 			rel='noreferrer'>
-			<div
-				style={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}>
+			<div className='flex items-center justify-center'>
 				Transaction History{' '}
-				<Image src={Link} alt='link-icon' style={{marginLeft: '3px'}} />
+				<Image src={Link} alt='link-icon' className='ml-[3px]' />
 			</div>
 		</a>
 	)
