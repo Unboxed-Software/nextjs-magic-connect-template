@@ -5,7 +5,7 @@ import Spacer from '../ui/spacer'
 
 const MagicDashboardRedirect = () => {
 	const onClick = useCallback(() => {
-		window.open('https://dashboard.magic.link', '_blank')
+		window.open('https://dashboard.magic.link/signup', '_blank')
 	}, [])
 
 	return (
