@@ -36,7 +36,7 @@ const RequestUserInfo = () => {
 				{disabled ? (
 					<div className='loading-container min-w-[220px]'>
 						<Image
-							className='loading'
+							className='animate-spin cursor-default'
 							alt='loading'
 							src={Loading}
 						/>

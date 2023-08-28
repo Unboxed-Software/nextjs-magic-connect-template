@@ -34,7 +34,7 @@ const Disconnect = ({setAccount}: Props) => {
 				{disabled ? (
 					<div className='loading-container min-w-[115px]'>
 						<Image
-							className='loading'
+							className='animate-spin cursor-default'
 							alt='loading'
 							src={Loading}
 						/>

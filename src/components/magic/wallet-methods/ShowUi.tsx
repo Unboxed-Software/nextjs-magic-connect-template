@@ -36,7 +36,7 @@ const ShowUI = () => {
 				{disabled ? (
 					<div className='loading-container mini-w-[76px]'>
 						<Image
-							className='loading'
+							className='animate-spin cursor-default'
 							alt='loading'
 							src={Loading}
 						/>

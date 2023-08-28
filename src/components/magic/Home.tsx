@@ -19,7 +19,7 @@ export default function Home({setAccount}: Props) {
 			<Links />
 			<Spacer size={120} />
 			<TableOfContents />
-			<div className='cards-container'>
+			<div className='mt-[-250px]'>
 				<SendTransaction />
 				<Wallet setAccount={setAccount} />
 				<WalletMethods setAccount={setAccount} />

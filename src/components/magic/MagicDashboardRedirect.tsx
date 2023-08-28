@@ -5,11 +5,11 @@ import Spacer from '../ui/Spacer'
 
 const MagicDashboardRedirect = () => {
 	const onClick = useCallback(() => {
-		window.open('https://dashboard.magic.link', '_blank')
+		window.open('https://dashboard.magic.link/signup', '_blank')
 	}, [])
 
 	return (
-		<div className="flex flex-col items-center min-h-screen bg-['100%_auto'] bg-[url('/login.svg')]">
+		<div className='redirect-container'>
 			<AppHeader />
 			<Spacer size={32} />
 			<Spacer size={20} />
@@ -22,12 +22,7 @@ const MagicDashboardRedirect = () => {
 			</div>
 			<Spacer size={32} />
 			<div className='text-center'>
-				<button
-					className='w-[296px] h-12 text-white font-semibold text-base leading-6 transition-[0.1s]
-					text-center transition-[0.1s] m-auto px-6 py-3 rounded-[300px] border-[none] hover:enabled:cursor-pointer
-					active:enabled:opacity-50 active:enabled:cursor-pointer active:enabled:scale-[0.99]
-					hover:enabled:bg-gradient-to-r from-[#0000000d] to-[#ffffff1a] active:enabled:bg-[#ffffff1a] bg-[#ffffff1a]'
-					onClick={onClick}>
+				<button className='connect-button' onClick={onClick}>
 					Go to Dashboard
 				</button>
 			</div>

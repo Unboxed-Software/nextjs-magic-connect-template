@@ -36,7 +36,7 @@ const GetWalletInfo = () => {
 				{disabled ? (
 					<div className='loading-container min-w-[86px]'>
 						<Image
-							className='loading'
+							className='animate-spin cursor-default'
 							alt='loading'
 							src={Loading}
 						/>

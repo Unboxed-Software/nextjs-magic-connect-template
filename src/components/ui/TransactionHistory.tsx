@@ -9,7 +9,7 @@ const TransactionHistory = () => {
 
 	return (
 		<a
-			className='action-button'
+			className='action-buttion'
 			href={`${blockExplorer}/address/${publicAddress}`}
 			target='_blank'
 			rel='noreferrer'>
