@@ -32,7 +32,7 @@ const Disconnect = ({setAccount}: Props) => {
 				onClick={disconnect}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '115px'}}>
+					<div className='loading-container min-w-[115px]'>
 						<Image
 							className='loading'
 							alt='loading'

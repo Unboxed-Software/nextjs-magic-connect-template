@@ -34,7 +34,7 @@ const GetWalletInfo = () => {
 				onClick={getWalletType}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '86px'}}>
+					<div className='loading-container min-w-[86px]'>
 						<Image
 							className='loading'
 							alt='loading'

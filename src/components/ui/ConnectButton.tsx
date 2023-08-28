@@ -8,13 +8,13 @@ interface Props {
 
 const ConnectButton = ({onClick, disabled}: Props) => {
 	return (
-		<div style={{textAlign: 'center'}}>
+		<div className='text-center'>
 			<button
 				className='connect-button'
 				onClick={onClick}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '100%'}}>
+					<div className='loading-container min-w-full'>
 						<Image
 							className='loading'
 							alt='loading'

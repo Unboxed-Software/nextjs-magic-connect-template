@@ -34,7 +34,7 @@ const RequestUserInfo = () => {
 				onClick={requestUserInfo}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '220px'}}>
+					<div className='loading-container min-w-[220px]'>
 						<Image
 							className='loading'
 							alt='loading'

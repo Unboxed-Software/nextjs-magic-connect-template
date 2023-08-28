@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const AppHeader = () => {
 	return (
-		<div style={{textAlign: 'center'}}>
+		<div className='app-header-container'>
 			<Image src={MagicLogo} alt='magic-logo' className='magic-logo' />
 			<h3 className='demo-sub-header'>Demo</h3>
 		</div>

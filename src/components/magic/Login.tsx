@@ -3,7 +3,6 @@ import AppHeader from '../ui/AppHeader'
 import Links from './Links'
 import ConnectButton from '../ui/ConnectButton'
 import Spacer from '../ui/Spacer'
-import LoginPageBackground from 'public/login.svg'
 import {useMagicContext} from '@/components/magic/MagicProvider'
 
 interface Props {
@@ -30,11 +29,7 @@ const Login = ({setAccount}: Props) => {
 	}, [magic, setAccount])
 
 	return (
-		<div
-			className='login-page'
-			style={{
-				backgroundImage: `url(${LoginPageBackground})`,
-			}}>
+		<div className='login-page'>
 			<AppHeader />
 			<Spacer size={32} />
 			<Spacer size={20} />

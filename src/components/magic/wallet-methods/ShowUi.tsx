@@ -34,7 +34,7 @@ const ShowUI = () => {
 				onClick={showUI}
 				disabled={disabled}>
 				{disabled ? (
-					<div className='loadingContainer' style={{width: '76px'}}>
+					<div className='loading-container mini-w-[76px]'>
 						<Image
 							className='loading'
 							alt='loading'
@@ -50,7 +50,7 @@ const ShowUI = () => {
 				crypto, and access recovery phrase.
 			</div>
 			{showUIError ? (
-				<div style={{marginBottom: '-10px'}}>
+				<div className='mb-[-10px]'>
 					<Spacer size={20} />
 					<ErrorText>
 						Method not supported for third party wallets.
