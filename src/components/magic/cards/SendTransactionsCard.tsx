@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import Image from 'next/image'
-import Divider from '../../ui/divider'
+import Divider from '../../ui/Divider'
 import FormButton from '../../ui/FormButton'
 import Link from 'public/link.svg'
-import Spacer from '../../ui/spacer'
+import Spacer from '../../ui/Spacer'
 import FormInput from '../../ui/FormInput'
-import Card from '../../ui/card'
+import Card from '../../ui/Card'
 import CardHeader from '../../ui/CardHeader'
 import TransactionHistory from '../../ui/TransactionHistory'
-import ErrorText from '../../ui/error'
+import ErrorText from '../../ui/Error'
 import {useMagicContext} from '@/components/magic/MagicProvider'
 import {getFaucetUrl, getNetworkToken} from '@/utils/networks'
 
@@ -64,16 +64,13 @@ const SendTransaction = () => {
 	return (
 		<Card>
 			<CardHeader id='send-transaction'>Send Transaction</CardHeader>
-			{getFaucetUrl() && (
-				<div>
-					<a href={getFaucetUrl()} target='_blank' rel='noreferrer'>
-						<FormButton onClick={() => null} disabled={false}>
-							Get Test {getNetworkToken()}
-						</FormButton>
-					</a>
-					<Divider />
-				</div>
-			)}
+			<a href={getFaucetUrl()} target='_blank' rel='noreferrer'>
+				<FormButton onClick={() => null} disabled={false}>
+					Get Test {tokenSymbol}{' '}
+					<Image src={Link} alt='link-icon' className='ml-[3px]' />
+				</FormButton>
+			</a>
+			<Divider />
 			<FormInput
 				value={toAddress}
 				onChange={(e: any) => setToAddress(e.target.value)}

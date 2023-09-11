@@ -1,9 +1,9 @@
 import {useCallback, useEffect, useState} from 'react'
 import Image from 'next/image'
-import Divider from '../../ui/divider'
+import Divider from '../../ui/Divider'
 import Loading from 'public/loading.svg'
 import CardLabel from '../../ui/CardLabel'
-import Card from '../../ui/card'
+import Card from '../../ui/Card'
 import CardHeader from '../../ui/CardHeader'
 import {useMagicContext} from '@/components/magic/MagicProvider'
 import {getNetworkName, getNetworkToken} from '@/utils/networks'
@@ -75,28 +75,24 @@ const UserInfo = ({setAccount}: Props) => {
 				rightAction={<div onClick={disconnect}>Disconnect</div>}
 				isDisconnect
 			/>
-			<div className='flex items-center'>
-				<div className='h-1.5 w-1.5 bg-[#00cc8f] mr-2.5 rounded-[50%]' />
-				<div className='text-base mx-0 my-[5px]'>
-					Connected to {getNetworkName()}
-				</div>
+			<div className='flex-row'>
+				<div className='green-dot' />
+				<div className='connected'>Connected to {getNetworkName()}</div>
 			</div>
 			<Divider />
 			<CardLabel
 				leftHeader='Address'
 				rightAction={<div onClick={copy}>{copied}</div>}
 			/>
-			<div className='text-base text-left p-2.5 rounded-[10px] font-[monospace] bg-[#f8f8fa] break-words'>
-				{publicAddress}
-			</div>
+			<div className='code'>{publicAddress}</div>
 			<Divider />
 			<CardLabel
 				leftHeader='Balance'
 				rightAction={
 					isRefreshing ? (
-						<div className='w-[50px] text-center flex items-center justify-center cursor-default'>
+						<div className='loading-container'>
 							<Image
-								className='animate-spin cursor-default'
+								className='loading'
 								alt='loading'
 								src={Loading}
 							/>
@@ -106,7 +102,7 @@ const UserInfo = ({setAccount}: Props) => {
 					)
 				}
 			/>
-			<div className='text-base text-left p-2.5 rounded-[10px] font-[monospace] bg-[#f8f8fa] break-words'>
+			<div className='code'>
 				{balance.substring(0, 7)} {tokenSymbol}
 			</div>
 		</Card>

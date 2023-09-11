@@ -54,19 +54,18 @@ const TableOfContents = () => {
 	}, [handleScroll])
 
 	return (
-		<nav className='w-[220px] min-w-[220px] self-start sticky max-h-[calc(100vh_-_70px)] overflow-auto mt-0 px-0 py-6 top-0'>
-			<ul className='w-fit m-0 pl-[30px] pr-0 py-0'>
+		<nav className='table-of-contents'>
+			<ul>
 				{headings.map((heading: any) => (
 					<li
 						key={heading.id}
-						className={`text-left list-disc cursor-pointer mb-[15px] content-['\x82']
-							${
-								isBottomOfPage && heading.id === 'signing'
-									? 'text-[#6851ff] font-semibold'
-									: activeId === heading.id && !isBottomOfPage
-									? 'text-[#6851ff] font-semibold'
-									: ''
-							}`}>
+						className={
+							isBottomOfPage && heading.id === 'signing'
+								? 'active'
+								: activeId === heading.id && !isBottomOfPage
+								? 'active'
+								: ''
+						}>
 						<a
 							href={`#${heading.id}`}
 							onClick={(e) => {

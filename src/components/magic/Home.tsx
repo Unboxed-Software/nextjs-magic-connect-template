@@ -5,7 +5,7 @@ import Wallet from './cards/UserInfoCard'
 import WalletMethods from './cards/WalletMethodsCard'
 import SendTransaction from './cards/SendTransactionsCard'
 import Links from './Links'
-import Spacer from '../ui/spacer'
+import Spacer from '../ui/Spacer'
 
 interface Props {
 	setAccount: React.Dispatch<React.SetStateAction<string | null>>
@@ -13,8 +13,7 @@ interface Props {
 
 export default function Home({setAccount}: Props) {
 	return (
-		<div
-			className={`flex flex-col justify-center items-center min-h-screen relative bg-[length:100vw_320px] bg-no-repeat bg-[url('/main.svg')]`}>
+		<div className='home-page'>
 			<AppHeader />
 			<Spacer size={32} />
 			<Links />

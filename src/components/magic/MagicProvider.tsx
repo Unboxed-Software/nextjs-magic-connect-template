@@ -30,7 +30,6 @@ const MagicProvider = ({children}: {children: React.ReactNode}) => {
 					},
 				}
 			)
-
 			setMagicInstance(magic)
 			setWeb3Instance(new Web3((magic as any).rpcProvider))
 		}
